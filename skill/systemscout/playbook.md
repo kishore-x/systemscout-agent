@@ -241,6 +241,8 @@ The output is always a **specific, named system for one concrete workflow**. A g
 
 Public information only. Log every source. Respect robots.txt and rate limits.
 
+**Preferred crawler: Firecrawl** (github.com/firecrawl/firecrawl). Use `map` to list a site's URLs, `scrape` for clean markdown of key pages and PDF catalogues (including JavaScript heavy pages), and `search` to pull full page content for peers and directory listings. Fall back to WebFetch, Claude in Chrome or Apify when it is not available. The API key stays in the environment and is never printed or pasted into chat.
+
 ### 5.4 Prediction card (stage 3)
 
 Each line is labelled **SEEN**, **INFERRED** or **PREDICTED**, with a confidence (high, medium, low) and the clue behind it.
@@ -478,7 +480,7 @@ LinkedIn URL would confirm. Do not invent company facts.
 
 ### 7.4 Research tooling
 
-WebSearch and WebFetch for pages and peers. Apify actors (rag web browser, LinkedIn, IndiaMART, Google Maps, job boards) for directories and postings. Claude in Chrome for sites that block fetches. A small script for MX record and page source tech detection.
+Firecrawl (map, scrape, search; MCP server, CLI or API; self-hostable) as the preferred crawler, with WebSearch and WebFetch as the fallback for pages and peers. Apify actors (rag web browser, LinkedIn, IndiaMART, Google Maps, job boards) for directories and postings. Claude in Chrome for sites that block fetches. A small script for MX record and page source tech detection.
 
 ### 7.5 Three ways to run it
 

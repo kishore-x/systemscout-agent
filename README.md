@@ -75,7 +75,29 @@ or just say it in plain words: *"scout https://example.com"*, *"what system can 
 
 ### Tools it uses
 
-WebSearch and WebFetch for pages and peers, `dig` for MX records (email provider), page-source checks for the site's technology. If a site blocks fetching it can fall back to Claude in Chrome or the Apify web browser actor. Public information only.
+- **[Firecrawl](https://github.com/firecrawl/firecrawl) (preferred crawler).** Maps every URL on a site, scrapes pages and PDF catalogues to clean markdown (including JavaScript heavy sites), and searches the web with full page content for peers and directories.
+- WebSearch and WebFetch as the built in fallback, `dig` for MX records (email provider), page-source checks for the site's technology.
+- Claude in Chrome or the Apify web browser actor for sites that block fetching.
+
+Public information only.
+
+### Set up Firecrawl (optional but recommended)
+
+SystemScout works without it, but reads JavaScript heavy sites, PDF catalogues and large product lists much better with it. Pick one:
+
+**A. MCP server (easiest in Claude Code).** Get an API key at https://firecrawl.dev, then:
+```bash
+claude mcp add firecrawl -e FIRECRAWL_API_KEY=fc-YOUR_KEY -- npx -y firecrawl-mcp
+```
+
+**B. API key in your shell** (the agent calls the REST API with curl):
+```bash
+echo 'export FIRECRAWL_API_KEY=fc-YOUR_KEY' >> ~/.zshrc && source ~/.zshrc
+```
+
+**C. Self-hosted.** Run Firecrawl from its open source repo (see its self-hosting docs) and also set `FIRECRAWL_API_URL` to your instance.
+
+The key is never written into this repo or into reports. Credits are limited, so the agent caps itself at about one `map`, 15 `scrape` and 6 `search` calls per company. Each report's research log says whether Firecrawl or the fallback was used.
 
 ## How to read a report
 
